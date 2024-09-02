@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="http://localhost:3333/?css=styles.css" type="text/css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Recipe Management</title>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="headerbar">
+                <div class="account">
+                    <div class="nav">
+                        <ul>
+                            <a href="index.html">
+                                <li>Home</li>
+                            </a>
+                            <a href="menu.html">
+                                <li>Menu</li>
+                            </a>
+                            <a href="reviews.html">
+                                <li>Reviews</li>
+                            </a>
+                            <li>Admin</li>
+                        </ul> 
+                    </div>
+                    <ul>
+                        <a href="index.html">
+                            <li>
+                                <i class="fa-solid fa-house-chimney"></i>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li>
+                                <i class="fa-solid fa-magnifying-glass searchicon" id="searchicon1"></i>
+                            </li>
+                        </a>
+                        <div class="search" id="searchinput1">
+                            <input type="search">
+                            <i class="fa-solid fa-magnifying-glass Srchicon"></i>       
+                        </div>
+                        <a href="login.html">
+                            <li class="fa-solid fa-user" id="user-mb"></li>
+                        </a>    
+                        <a href="logout.html">
+                            <li>logout</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <div class="bar">
+                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-xmark" id="hdcross"></i>
+            </div>
+            <div class="nav">
+                <ul>
+                    <a href="index.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="menu.html">
+                        <li>Menu</li>
+                    </a>
+                    <a href="reviews.html">
+                        <li>Reviews</li>
+                    </a>
+                    <a href="admin.html">
+                        <li>Admin</li>
+                    </a>
+                </ul>
+            </div>
+            <div class="account">
+                <ul>
+                    <a href="index.html">
+                        <li>
+                            <i class="fa-solid fa-house-chimney"></i>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-magnifying-glass searchicon" id="searchicon2"></i>
+                        </li>
+                    </a>
+                    <div class="search" id="searchinput2">
+                        <input type="search">
+                        <i class="fa-solid fa-magnifying-glass Srchicon"></i>
+                    </div>
+                    <a href="login.html">
+                        <li>
+                            <i class="fa-solid fa-user" id="user-lap"></i>
+                        </li>
+                    </a>
+                    <a href="profile.html">
+                        <li>
+                            <p id="username"></p>
+                        </li>
+                    </a>
+                    <a href="logout.html">
+                        <li>logout</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="home">
+        <div class="main_slide">
+            <div>
+                <h1><span>Bite</span> into <span>Bliss</span></h1>
+                <p>Welcome to Urban Bites, your ultimate destination for delicious, fast, and diverse cuisine!<br>From mouth-watering burgers and crispy fries to exotic global flavors,
+                    we bring the world <br> to your plate with every bite. Whether you're grabbing a quick lunch, enjoying a family dinner,<br>
+                    or indulging in late-night cravings, Urban Bites offers a vibrant atmosphere, exceptional service, and a menu that promises to<br> 
+                    delight every palate.<br>
+                    Come taste the excitement and make Urban Bites your new favorite spot for unforgettable meals!</p>
+                <button class="red_btn">Visit now <i class="fa-solid fa-arrow-right-long"></i></button> 
+            </div>
+        </div>
+        <div class="food-items" id="food-items">
+            <!-- Food items will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('fetch_recipes.php')
+                .then(response => response.json())
+                .then(data => {
+                    const foodItemsContainer = document.getElementById('food-items');
+                    data.forEach(recipe => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.classList.add('item');
+                        itemDiv.innerHTML = `
+                            <div>
+                                <img src="${recipe.image_url}" alt="food-item">
+                            </div>
+                            <h3>${recipe.name}</h3>
+                            <p>${recipe.description}</p>
+                            <button class="white_btn">See Menu</button>
+                        `;
+                        foodItemsContainer.appendChild(itemDiv);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
